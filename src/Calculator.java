@@ -1,12 +1,13 @@
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class Calculator {
     private int inp1;
     private int inp2;
-    private int temp;
     private String operator;
-    private String[] log = new String[100];
-    Calculator(){
-        temp = 0;
-    }
+    private Queue<String> log = new LinkedList<>();
+    Calculator(){}
 
     public void setValues(int inp1, int inp2, String operator) {
         this.inp1 = inp1;
@@ -36,32 +37,35 @@ public class Calculator {
 
     public void calc(){
         try{
+            String result = "";     // Feedback: Minimize repetitive parts
             switch (operator) {
                 case "+" -> {
-                    System.out.println(inp1 + " + " + inp2 + " = " + (inp1 + inp2));
-                    log[temp++]=inp1 + " + " + inp2 + " = " + (inp1 + inp2);
+                    result = inp1 + " + " + inp2 + " = " + (inp1 + inp2);
                 }
                 case "-" -> {
-                    System.out.println(inp1 + " - " + inp2 + " = " + (inp1 - inp2));
-                    log[temp++]=inp1 + " - " + inp2 + " = " + (inp1 - inp2);
+                    result = inp1 + " - " + inp2 + " = " + (inp1 - inp2);
                 }
                 case "*" -> {
-                    System.out.println(inp1 + " * " + inp2 + " = " + (inp1 * inp2));
-                    log[temp++]=inp1 + " * " + inp2 + " = " + (inp1 * inp2);
+                    result = inp1 + " * " + inp2 + " = " + (inp1 * inp2);
                 }
                 case "/" -> {
-                    System.out.println(inp1 + " / " + inp2 + " = " + (inp1 / inp2));
-                    log[temp++]=inp1 + " / " + inp2 + " = " + (inp1 / inp2);
+                    result = inp1 + " / " + inp2 + " = " + (inp1 / inp2);
                 }
             }
+            System.out.println(result);
+            log.add(result);
+
         }catch(ArithmeticException e){
             System.out.println("Can't divide by zero");
         }
     }
 
     public void getLog(){
-        for(int i = 0; i < temp; i++){
-            System.out.println(i+1+". " + log[temp - 1 - i]);
+        Iterator<String> it = log.iterator();
+        int index = 1;
+        while(it.hasNext()){
+            System.out.println(index+". " + it.next());
+            index++;
         }
     }
 }
