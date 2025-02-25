@@ -2,18 +2,19 @@ import java.util.Scanner;
 
 public class MyCalculator {
     public static void main(String[] args) {
+        Calculator myCalc = new Calculator();
         int inp1, inp2;
         String operator;
         Scanner scanner = new Scanner(System.in);
         while(true){
-            System.out.println("Please enter positive integer including zero(Type \"exit\" to exit): )");
-            inp1 = checkPositiveInteger(scanner);
-            inp2 = checkPositiveInteger(scanner);
+            System.out.println("Please enter two positive integers including zero\nEnter \"exit\" to exit\nEnter \"log\" to show all logs");
+            inp1 = checkPositiveInteger(scanner, myCalc);
+            inp2 = checkPositiveInteger(scanner, myCalc);
 
             System.out.println("Please enter the operator(+, -, *, /)");
             operator = checkOperator(scanner);
 
-            Calculator myCalc = new Calculator(inp1, inp2, operator);
+            myCalc.setValues(inp1, inp2, operator);
             myCalc.calc();
         }
     }
@@ -29,12 +30,16 @@ public class MyCalculator {
         }
     }
 
-    private static int checkPositiveInteger(Scanner scanner){
+    private static int checkPositiveInteger(Scanner scanner, Calculator myCalc) {
         while(true){
             String input = scanner.next();
             if(input.equalsIgnoreCase("exit")){ // When input value is "exit"
                 System.out.println("Calculator exited");
                 System.exit(0);
+            }
+            if(input.equals("log")){
+                myCalc.getLog();
+                continue;
             }
             try {
                 int value = Integer.parseInt(input); // Try to change String into integer
