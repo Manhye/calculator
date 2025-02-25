@@ -1,60 +1,43 @@
-import java.util.Scanner;
-
 public class Calculator {
-    public static void main(String[] args) {
-        int inp1, inp2;
-        String operator;
-        Scanner scanner = new Scanner(System.in);
-        while(true){
-            System.out.println("양의 정수를 2개 입력해 주세요(종료하려면 \"exit\"을 입력해주세요)");
-            inp1 = checkPositiveInteger(scanner);
-            inp2 = checkPositiveInteger(scanner);
-
-            System.out.println("연산자를 입력해 주세요(+, -, *, /)");
-            operator = checkOperator(scanner);
-
-            try{
-                switch (operator) {
-                    case "+" -> System.out.println(inp1 + " + " + inp2 + " = " + (inp1 + inp2));
-                    case "-" -> System.out.println(inp1 + " - " + inp2 + " = " + (inp1 - inp2));
-                    case "*" -> System.out.println(inp1 + " * " + inp2 + " = " + (inp1 * inp2));
-                    case "/" -> System.out.println(inp1 + " / " + inp2 + " = " + (inp1 / inp2));
-                }
-            }catch(ArithmeticException e){
-                System.out.println("0으로 나눌 수는 없습니다.");
-            }
-        }
+    private int inp1;
+    private int inp2;
+    private String operator;
+    Calculator(int inp1, int inp2, String operator) {
+        this.inp1 = inp1;
+        this.inp2 = inp2;
+        this.operator = operator;
     }
 
-    private static String checkOperator(Scanner scanner) {
-        while(true){
-            String operator = scanner.next();
-            if(operator.equals("+") || operator.equals("-") || operator.equals("*") || operator.equals("/")) {
-                return operator;
-            }else{
-                System.out.println("잘못된 연산자 입니다.");
-            }
-        }
+    public int getInp1(){
+        return inp1;
+    }
+    public int getInp2(){
+        return inp2;
+    }
+    public String getOperator(){
+        return operator;
     }
 
-    private static int checkPositiveInteger(Scanner scanner){
-        while(true){
-            String input = scanner.next();
-            if(input.equalsIgnoreCase("exit")){ //"exit"을 입력한 경우 종료
-                System.out.println("계산기 종료");
-                System.exit(0);
+    public void setInp1(int inp1) {
+        this.inp1 = inp1;
+    }
+    public void setInp2(int inp2) {
+        this.inp2 = inp2;
+    }
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public void calc(){
+        try{
+            switch (operator) {
+                case "+" -> System.out.println(inp1 + " + " + inp2 + " = " + (inp1 + inp2));
+                case "-" -> System.out.println(inp1 + " - " + inp2 + " = " + (inp1 - inp2));
+                case "*" -> System.out.println(inp1 + " * " + inp2 + " = " + (inp1 * inp2));
+                case "/" -> System.out.println(inp1 + " / " + inp2 + " = " + (inp1 / inp2));
             }
-            try {
-                int value = Integer.parseInt(input); // 정수 변환 시도
-                if (value < 0) {
-                    System.out.println("양의 정수를 입력해야 합니다. 다시 입력하세요.");
-                    continue;
-                }
-                return value; // 정상적인 값이면 반환
-            } catch (NumberFormatException e) {
-                System.out.println("유효한 숫자가 아닙니다. 다시 입력하세요.");
-            }
+        }catch(ArithmeticException e){
+            System.out.println("Can't divide by zero");
         }
     }
 }
-
