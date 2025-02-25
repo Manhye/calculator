@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Calculator {
@@ -56,7 +55,6 @@ public class Calculator {
                 System.out.println("유효한 숫자가 아닙니다. 다시 입력하세요.");
             }
         }
-
     }
 }
 
