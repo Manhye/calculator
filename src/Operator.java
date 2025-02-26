@@ -1,30 +1,19 @@
 public enum Operator {
-    PLUS("+"){
-        public double calc(double a, double b) {
-            return a + b;
-        }
-    },
-    MINUS("-"){
-        public double calc(double a, double b) {
-            return a - b;
-        }
-    },
-    MULTIPLY("*"){
-        public double calc(double a, double b) {
-            return a * b;
-        }
-    },
-    DIVIDE("/"){
-        public double calc(double a, double b) {
-            return a / b;
-        }
-    };
+
+
+    PLUS("+",(a,b) -> a+b),
+    MINUS("-",(a,b) -> a-b),
+    MULTIPLY("*",(a,b) -> a*b),
+    DIVIDE("/",(a,b) -> a/b);
 
     private final String operator;
+    private final Operation operation;
 
-    Operator(String operator) {
+    Operator(String operator, Operation operation) {
         this.operator = operator;
+        this.operation=operation;
     }
+
 
     @Override
     public String toString() {
@@ -32,8 +21,10 @@ public enum Operator {
     }
 
 
+    public double calc(double a, double b){
+        return operation.calc(a, b);
+    }
 
-    public abstract double calc(double a, double b);
 
     public static Operator getOperator(String operator) {
         for(Operator op : Operator.values()){

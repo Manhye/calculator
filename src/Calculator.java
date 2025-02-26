@@ -62,29 +62,20 @@ public class Calculator {
         }
     }
 
-    public void getBig(double dComp){
-        Iterator<String> it  = log.iterator();
-        int iCount = 0;
-        int iIndex2 = 0;
-        while(it.hasNext()){
-            int iIndex1 = 0;
-            iIndex2++;
-            String s = it.next();
-            int iLength = s.length();
-            String sTemp = "temp";
-            while(!sTemp.equals(" ")){
-                iIndex1++;
-                sTemp = s.substring(iLength - iIndex1, iLength - iIndex1 + 1);
-            }
-            iIndex1--;
-            sTemp = s.substring(iLength - iIndex1, iLength);
-            double dTemp = Double.parseDouble(sTemp);
-            if(dTemp > dComp){
-                System.out.println(iIndex2+". " + s);
-                iCount++;
-            }
-        }
-        if(iCount == 0){
+    public void getBig(double dComp) {
+        int count = (int) log.stream()
+                .filter(s -> {
+                    try {
+                        String lastNumber = s.substring(s.lastIndexOf(" ") + 1);
+                        double dTemp = Double.parseDouble(lastNumber);
+                        return dTemp > dComp;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                })
+                .peek(s -> System.out.println(s))
+                .count();
+        if (count == 0) {
             System.out.println("Biggest result, yet");
         }
     }
