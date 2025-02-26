@@ -1,59 +1,51 @@
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.LinkedList;
 
 public class Calculator {
-    private int inp1;
-    private int inp2;
-    private String operator;
+    private double inp1;
+    private double inp2;
+    private Operator operator;
     private Queue<String> log = new LinkedList<>();
     Calculator(){}
 
-    public void setValues(int inp1, int inp2, String operator) {
+    public void setValues(double inp1, double inp2, Operator operator) {
         this.inp1 = inp1;
         this.inp2 = inp2;
         this.operator = operator;
     }
 
-    public int getInp1(){
+    public double getInp1(){
         return inp1;
     }
-    public int getInp2(){
+    public double getInp2(){
         return inp2;
     }
-    public String getOperator(){
+    public Operator getOperator(){
         return operator;
     }
 
-    public void setInp1(int inp1) {
+    public void setInp1(double inp1) {
         this.inp1 = inp1;
     }
-    public void setInp2(int inp2) {
+    public void setInp2(double inp2) {
         this.inp2 = inp2;
     }
-    public void setOperator(String operator) {
+    public void setOperator(Operator operator) {
         this.operator = operator;
     }
 
     public void calc(){
         try{
-            String result = "";     // Feedback: Minimize repetitive parts
-            switch (operator) {
-                case "+" -> {
-                    result = inp1 + " + " + inp2 + " = " + (inp1 + inp2);
-                }
-                case "-" -> {
-                    result = inp1 + " - " + inp2 + " = " + (inp1 - inp2);
-                }
-                case "*" -> {
-                    result = inp1 + " * " + inp2 + " = " + (inp1 * inp2);
-                }
-                case "/" -> {
-                    result = inp1 + " / " + inp2 + " = " + (inp1 / inp2);
-                }
-            }
-            System.out.println(result);
-            log.add(result);
+            BigDecimal b1 = BigDecimal.valueOf(inp1);
+            BigDecimal b2 = BigDecimal.valueOf(inp2);
+
+            BigDecimal bResult = BigDecimal.valueOf(operator.calc(inp1, inp2));
+            String sResult = String.format("%s %s %s = %s", b1.stripTrailingZeros().toPlainString(), operator, b2.stripTrailingZeros().toPlainString(), bResult.stripTrailingZeros().toPlainString());     // Feedback: Minimize repetitive parts
+
+            System.out.println(sResult);
+            log.add(sResult);
 
         }catch(ArithmeticException e){
             System.out.println("Can't divide by zero");
@@ -68,4 +60,6 @@ public class Calculator {
             index++;
         }
     }
+
+
 }
