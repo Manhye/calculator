@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MyCalculator {
@@ -7,9 +8,9 @@ public class MyCalculator {
         Operator operator;
         Scanner scanner = new Scanner(System.in);
         while(true){
-            System.out.println("Please enter two positive integers including zero\nEnter \"exit\" to exit\nEnter \"log\" to show all logs");
-            inp1 = checkPositiveInteger(scanner, myCalc);
-            inp2 = checkPositiveInteger(scanner, myCalc);
+            System.out.println("Please enter two numbers\nEnter \"exit\" to exit\nEnter \"log\" to show all logs\nEnter \"big\" to show bigger results");
+            inp1 = checkNumber(scanner, myCalc);
+            inp2 = checkNumber(scanner, myCalc);
 
             System.out.println("Please enter the operator(+, -, *, /)");
             operator = checkOperator(scanner);
@@ -31,7 +32,7 @@ public class MyCalculator {
         }
     }
 
-    private static double checkPositiveInteger(Scanner scanner, Calculator myCalc) {
+    private static double checkNumber(Scanner scanner, Calculator myCalc) {
         while(true){
             String input = scanner.next();
             if(input.equalsIgnoreCase("exit")){ // When input value is "exit"
@@ -42,10 +43,19 @@ public class MyCalculator {
                 myCalc.getLog();
                 continue;
             }
+            if(input.equals("big")){
+                System.out.println("Please Enter number you want to compare");
+                try{
+                    double dComp = scanner.nextDouble();
+                    myCalc.getBig(dComp);
+                }catch(InputMismatchException e){
+                    System.out.println("Not a number. Please try again");
+                    scanner.next();
+                }
+                continue;
+            }
             try {
-                double value = Double.parseDouble(input); // Try to change String into integer
-
-                return value;
+                return Double.parseDouble(input);
             } catch (NumberFormatException e) {
                 System.out.println("Not a number. Please try again");
             }

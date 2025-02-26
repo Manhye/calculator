@@ -42,7 +42,8 @@ public class Calculator {
             BigDecimal b2 = BigDecimal.valueOf(inp2);
 
             BigDecimal bResult = BigDecimal.valueOf(operator.calc(inp1, inp2));
-            String sResult = String.format("%s %s %s = %s", b1.stripTrailingZeros().toPlainString(), operator, b2.stripTrailingZeros().toPlainString(), bResult.stripTrailingZeros().toPlainString());     // Feedback: Minimize repetitive parts
+            String sResult = String.format("%s %s %s = %s", b1.stripTrailingZeros().toPlainString(),
+                    operator, b2.stripTrailingZeros().toPlainString(), bResult.stripTrailingZeros().toPlainString());
 
             System.out.println(sResult);
             log.add(sResult);
@@ -54,10 +55,37 @@ public class Calculator {
 
     public void getLog(){
         Iterator<String> it = log.iterator();
-        int index = 1;
+        int index = 0;
         while(it.hasNext()){
-            System.out.println(index+". " + it.next());
             index++;
+            System.out.println(index+". " + it.next());
+        }
+    }
+
+    public void getBig(double dComp){
+        Iterator<String> it  = log.iterator();
+        int iCount = 0;
+        int iIndex2 = 0;
+        while(it.hasNext()){
+            int iIndex1 = 0;
+            iIndex2++;
+            String s = it.next();
+            int iLength = s.length();
+            String sTemp = "temp";
+            while(!sTemp.equals(" ")){
+                iIndex1++;
+                sTemp = s.substring(iLength - iIndex1, iLength - iIndex1 + 1);
+            }
+            iIndex1--;
+            sTemp = s.substring(iLength - iIndex1, iLength);
+            double dTemp = Double.parseDouble(sTemp);
+            if(dTemp > dComp){
+                System.out.println(iIndex2+". " + s);
+                iCount++;
+            }
+        }
+        if(iCount == 0){
+            System.out.println("Biggest result, yet");
         }
     }
 

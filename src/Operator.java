@@ -21,7 +21,8 @@ public enum Operator {
     };
 
     private final String operator;
-    private Operator(String operator) {
+
+    Operator(String operator) {
         this.operator = operator;
     }
 
@@ -29,6 +30,8 @@ public enum Operator {
     public String toString() {
         return operator;
     }
+
+
 
     public abstract double calc(double a, double b);
 
@@ -40,4 +43,5 @@ public enum Operator {
         }
         return null;
     }
+
 }
