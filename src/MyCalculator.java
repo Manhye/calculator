@@ -1,8 +1,36 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MyCalculator {
     public static void main(String[] args) {
+        InputProcessor iProcessor = new InputProcessor();
+        Calculator calculator = new Calculator();
+        Log log = Log.getInstance();
+        OutputProcessor oProcessor = new OutputProcessor();
+        List<Token> tokens = new ArrayList<Token>();
+        Printer printer = new Printer();
+
+        double result=0;
+
+        while(true){
+            tokens = iProcessor.init();
+            result = calculator.init(tokens);
+            oProcessor.init(result, tokens);
+
+            tokens.clear();
+        }
+
+
+    }
+}
+        //oProcessor.init();
+
+
+
+
+/*
         Calculator myCalc = new Calculator();
         double inp1, inp2;
         Operator operator;
@@ -18,9 +46,9 @@ public class MyCalculator {
             myCalc.setValues(inp1, inp2, operator);
             myCalc.calc();
         }
-    }
+    }*/
 
-    private static Operator checkOperator(Scanner scanner) {
+    /*private static Operator checkOperator(Scanner scanner) {
         while(true){
             String input = scanner.next();
             Operator op = Operator.getOperator(input);
@@ -30,8 +58,9 @@ public class MyCalculator {
                 return op;
             }
         }
-    }
+    }*/
 
+/*
     private static double checkNumber(Scanner scanner, Calculator myCalc) {
         while(true){
             String input = scanner.next();
@@ -62,4 +91,5 @@ public class MyCalculator {
         }
     }
 }
+*/
 
