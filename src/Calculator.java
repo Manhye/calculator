@@ -66,8 +66,8 @@ public class Calculator {
         int count = (int) log.stream()
                 .filter(s -> {
                     try {
-                        String lastNumber = s.substring(s.lastIndexOf(" ") + 1);
-                        double dTemp = Double.parseDouble(lastNumber);
+                        String sLastNumber = s.substring(s.lastIndexOf(" ") + 1);
+                        double dTemp = Double.parseDouble(sLastNumber);
                         return dTemp > dComp;
                     } catch (NumberFormatException e) {
                         return false;
