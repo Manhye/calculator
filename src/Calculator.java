@@ -21,8 +21,10 @@ public class Calculator {
             } else if (tokens.get(index).getValue().equals("(")) {
                 index++;
                 convertToPostfix(tokens);
-            }else if(tokens.get(index).getValue().equals(")")){
+            } else if (tokens.get(index).getValue().equals(")")) {
                 break;
+            }else if(tokens.get(index).getValue().equals("!")){
+                values.add(tokens.get(index).getValue());
             }else{
                 Operator operator = Operator.getOperator(tokens.get(index).getValue());
                 if(operators.empty()){
@@ -61,11 +63,19 @@ public class Calculator {
                 Double val = Double.parseDouble(sTemp);
                 numbers.push(val);
             }catch(NumberFormatException e){
-                double a = numbers.pop();
-                double b = numbers.pop();
-                Operator operator = Operator.getOperator(sTemp);
-                double result = operator.calc(b,a);
-                numbers.push(result);
+                if(sTemp.equals("!")){
+                    double a = numbers.pop();
+                    Operator operator = Operator.getOperator(sTemp);
+                    double result = operator.calc(a,1);
+                    numbers.push(result);
+                }else{
+                    double a = numbers.pop();
+                    double b = numbers.pop();
+                    Operator operator = Operator.getOperator(sTemp);
+                    double result = operator.calc(b,a);
+                    numbers.push(result);
+                }
+
             }
         }
         return numbers.pop();

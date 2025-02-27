@@ -7,7 +7,16 @@ public enum Operator {
     DIVIDE("/",(a,b) -> a/b, 3),
 
     LEFT_PARENTHESIS("(", null, 2),
-    RIGHT_PARENTHESIS(")", null,2);
+    RIGHT_PARENTHESIS(")", null,2),
+
+    FACTORIAL("!", (a, b) ->{
+        int result = 1;
+        for(int i = 1; i <= a; i++){
+        result*=i;
+        }
+        return result;
+    }, 0),
+    POWER("^",(a,b) -> Math.pow(a,b), 1);
 
 
     private String operator;
@@ -20,6 +29,8 @@ public enum Operator {
         this.operation=operation;
         this.priority=priority;
     }
+
+
 
 
     @Override
