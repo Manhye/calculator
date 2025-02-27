@@ -5,10 +5,14 @@ public class InputCommands {
         Log log = Log.getInstance();
 
         switch (command) {
-            //case "big":
             case "exit": System.exit(0); break;
             case "help": printer.help(); break;
             case "log": log.printLog(); break;
+            default:
+                if(command.startsWith("big")){
+                    String sLastNumber = command.substring(command.lastIndexOf(" ")+1);
+                    log.printBiggerLog(Double.parseDouble(sLastNumber));
+                }
 
         }
     }

@@ -14,7 +14,6 @@ public enum Operator {
     private Operation operation;
     private int priority;
 
-    Operator(){};
 
     Operator(String operator, Operation operation, int priority) {
         this.operator = operator;

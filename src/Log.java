@@ -21,4 +21,23 @@ public class Log {
         Printer printer = new Printer();
         printer.printLog(results);
     }
+
+    public void printBiggerLog(double inp){
+        Printer printer = new Printer();
+        int count = (int) results.stream()
+                        .filter(s -> {
+                            try{
+                                String sLastNumber = s.substring(s.lastIndexOf(" ")+1);
+                                double dTemp = Double.parseDouble(sLastNumber);
+                                return dTemp > inp;
+                            }catch(NumberFormatException e){
+                                return false;
+                            }
+                        })
+                        .peek(s -> System.out.println(s))
+                        .count();
+        if (count == 0) {
+            System.out.println("Biggest result, yet");
+        }
+    }
 }

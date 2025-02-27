@@ -34,7 +34,8 @@ public class Printer {
                 "Command List\n" +
                         "@big + (number) : show bigger results\n" +
                         "@exit: exit the program\n" +
-                        "@help: show other commands\n"
+                        "@help: show other commands\n"+
+                        "@log: show logs"
         );
     }
 
