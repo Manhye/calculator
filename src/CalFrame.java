@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalFrame extends JFrame {
-    private JTextField screen;
+    private JTextArea screen;
     private InputProcessor iProcessor = new InputProcessor();
     private Calculator calculator = new Calculator();
     private Log log = Log.getInstance();
@@ -23,11 +23,16 @@ public class CalFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        screen = new JTextField(defaultText);
+        screen = new JTextArea(defaultText);
         screen.setEditable(true);
         screen.setFont(new Font("Arial", Font.BOLD, 24));
-        screen.setHorizontalAlignment(JTextField.RIGHT);
+        screen.setLineWrap(true);
+        screen.setWrapStyleWord(true);
         screen.setForeground(Color.GRAY);
+
+        JScrollPane scrollPane = new JScrollPane(screen);
+        scrollPane.setPreferredSize(new Dimension(450, 400));
+        add(scrollPane, BorderLayout.NORTH);
 
         screen.addFocusListener(new FocusAdapter() {
             @Override
@@ -57,7 +62,6 @@ public class CalFrame extends JFrame {
         });
 
 
-        add(screen, BorderLayout.NORTH);
 
 
         JPanel buttonPanel = new JPanel();;
@@ -80,7 +84,7 @@ public class CalFrame extends JFrame {
         add(buttonPanel, BorderLayout.CENTER);
 
 
-        setSize(600, 400);
+        setSize(600, 800);
         setVisible(true);
     }
 
