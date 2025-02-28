@@ -30,18 +30,21 @@ public class Printer {
     }
 
     public void help(){
-        System.out.println(
-                "Command List\n" +
-                        "@big + (number) : show bigger results\n" +
-                        "@exit: exit the program\n" +
-                        "@help: show other commands\n"+
-                        "@log: show logs"
-        );
+        String help = "Command List\n" +
+                "@big + (number) : show bigger results\n" +
+                "@exit: exit the program\n" +
+                "@help: show other commands\n"+
+                "@log: show logs";
+        System.out.println(help);
+        CalFrame.getInstance().setText(help);
     }
 
     public void printLog(List<String> results) {
+        String log = "";
         for(String line : results){
             System.out.println(line);
+            log +=  line + "\n";
         }
+        CalFrame.getInstance().setText(log);
     }
 }

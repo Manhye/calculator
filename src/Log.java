@@ -20,25 +20,30 @@ public class Log {
     public void printLog(){
         Printer printer = new Printer();
         printer.printLog(results);
+
     }
 
     public void printBiggerLog(double inp){
         Printer printer = new Printer();
-        int count = (int) results.stream()
-                        .filter(s -> {
-                            try{
-                                String sLastNumber = s.substring(s.lastIndexOf(" ")+1);
-                                double dTemp = Double.parseDouble(sLastNumber);
-                                return dTemp > inp;
-                            }catch(NumberFormatException e){
-                                return false;
-                            }
-                        })
-                        .peek(s -> System.out.println(s))
-                        .count();
-        if (count == 0) {
-            System.out.println("Biggest result, yet");
+        List<String> biggerResults = results.stream()
+                .filter(s -> {
+                    try {
+                        String sLastNumber = s.substring(s.lastIndexOf(" ") + 1);
+                        double dTemp = Double.parseDouble(sLastNumber);
+                        return dTemp > inp;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                })
+                .toList();
+        String str = String.join("\n", biggerResults);
+
+        if (biggerResults.isEmpty()) {
+            CalFrame.getInstance().setText("Biggest result, yet");
+        } else {
+            CalFrame.getInstance().setText(str);
         }
+
     }
     public String getCurrentLog() {
         if (results.isEmpty()) {

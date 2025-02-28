@@ -9,8 +9,7 @@ public class Main {
         OutputProcessor oProcessor = new OutputProcessor();
         List<Token> tokens = new ArrayList<Token>();
         Printer printer = new Printer();
-        new CalFrame();
-
+        CalFrame calFrame = CalFrame.getInstance();
         double result=0;
 
 //        while(true){

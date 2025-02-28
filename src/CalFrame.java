@@ -5,20 +5,24 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 
 public class CalFrame extends JFrame {
+    private static CalFrame instance;  // 싱글톤 인스턴스
+
     private JTextArea screen;
     private InputProcessor iProcessor = new InputProcessor();
     private Calculator calculator = new Calculator();
     private Log log = Log.getInstance();
     private OutputProcessor oProcessor = new OutputProcessor();
-    private List<Token> tokens = new ArrayList<Token>();
+    private List<Token> tokens = new ArrayList<>();
     private double result;
 
     private final String defaultText = "Enter '@help' for extra commands";
 
-    public CalFrame(){
+    // 🔹 private 생성자 (외부에서 직접 생성 못하게)
+    private CalFrame() {
         setTitle("Calculator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -36,16 +40,16 @@ public class CalFrame extends JFrame {
 
         screen.addFocusListener(new FocusAdapter() {
             @Override
-            public void focusGained(FocusEvent e){
-                if(screen.getText().equals(defaultText)){
+            public void focusGained(FocusEvent e) {
+                if (screen.getText().equals(defaultText)) {
                     screen.setText("");
                     screen.setForeground(Color.BLACK);
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent e){
-                if(screen.getText().isEmpty()){
+            public void focusLost(FocusEvent e) {
+                if (screen.getText().isEmpty()) {
                     screen.setText(defaultText);
                     screen.setForeground(Color.GRAY);
                 }
@@ -61,71 +65,85 @@ public class CalFrame extends JFrame {
             }
         });
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 6, 5, 5));
 
-
-
-        JPanel buttonPanel = new JPanel();;
-        buttonPanel.setLayout(new GridLayout(4,6,5,5));
-
-        String[] buttons ={
-                "7","8","9","/","(","@",
-                "4","5","6","*",")","log",
-                "1","2","3","-","!","sin",
-                "0","C","=","+","^","cos"
+        String[] buttons = {
+                "7", "8", "9", "/", "(", "@",
+                "4", "5", "6", "*", ")", "log",
+                "1", "2", "3", "-", "!", "sin",
+                "0", "C", "=", "+", "^", "cos"
         };
 
-        for(String text : buttons){
+        for (String text : buttons) {
             JButton button = new JButton(text);
-            button.setFont(new Font("Arial",Font.BOLD, 20));
+            button.setFont(new Font("Arial", Font.BOLD, 20));
             button.addActionListener(new ButtonClickListener());
             buttonPanel.add(button);
         }
 
         add(buttonPanel, BorderLayout.CENTER);
 
-
         setSize(600, 800);
         setVisible(true);
     }
 
 
+    public void setText(String text){
+        screen.setText(text);
+    }
+
+    public static synchronized CalFrame getInstance() {
+        if (instance == null) {
+            instance = new CalFrame();
+        }
+        return instance;
+    }
+
     private void processCalculation() {
         String currentText = screen.getText();
 
         if (!currentText.isEmpty() && !currentText.equals(defaultText)) {
-            tokens = iProcessor.init(currentText);
-            result = calculator.init(tokens);
-            oProcessor.init(result, tokens);
-            screen.setText(log.getCurrentLog());
-            tokens.clear();
+            try{
+                tokens = iProcessor.init(currentText);
+                if (!tokens.isEmpty()) {
+                    result = calculator.init(tokens);
+                    oProcessor.init(result, tokens);
+                    screen.setText(log.getCurrentLog());
+                    tokens.clear();
+                }
+
+            }catch(EmptyStackException e){
+                System.out.println("Not a formula");
+            }
+
+
         }
     }
 
     private class ButtonClickListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             String buttonText = e.getActionCommand();
             String currentText = screen.getText();
-
 
             if (buttonText.matches("[0-9]")) {
                 playNumberSound(buttonText);
             }
 
-            if(buttonText.equals("C")){
+            if (buttonText.equals("C")) {
                 screen.setText(defaultText);
                 screen.setForeground(Color.GRAY);
-            }else if(buttonText.equals("=")){
+            } else if (buttonText.equals("=")) {
                 processCalculation();
-            }else {
+            } else {
                 if (currentText.equals(defaultText)) {
                     screen.setForeground(Color.BLACK);
                     screen.setText(buttonText);
-                }else if(currentText.contains("=")){
-                    screen.setText(result+buttonText);
-                }else{
+                } else if (currentText.contains("=")) {
+                    screen.setText(result + buttonText);
+                } else {
                     screen.setText(currentText + buttonText);
-
                 }
             }
         }
@@ -143,6 +161,4 @@ public class CalFrame extends JFrame {
             e.printStackTrace();
         }
     }
-
-
 }
