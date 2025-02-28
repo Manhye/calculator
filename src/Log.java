@@ -40,4 +40,11 @@ public class Log {
             System.out.println("Biggest result, yet");
         }
     }
+    public String getCurrentLog() {
+        if (results.isEmpty()) {
+            return "No logs available";
+        } else {
+            return results.get(results.size() - 1);
+        }
+    }
 }

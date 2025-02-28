@@ -9,22 +9,15 @@ public class InputProcessor {
 
     InputProcessor(){}
 
-    public List<Token> init() {
+    public List<Token> init(String formula) {
         ExpressionChecker eChecker = new ExpressionChecker();
         printer.basePrint();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String sInp = scanner.nextLine();
-            try {
-                tokens = eChecker.checkExpression(sInp);
-            } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage());
-                tokens.clear();
-                printer.basePrint();
-            }
-            if(!tokens.isEmpty()){
-                break;
-            }
+        try {
+            tokens = eChecker.checkExpression(formula);
+        } catch (IllegalArgumentException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+            tokens.clear();
+            printer.basePrint();
         }
         return tokens;
     }
