@@ -90,20 +90,20 @@ public class GUI extends JFrame {
                 playNumberSound(buttonText);
             }
 
-            if (buttonText.equals("C")) {
-                screen.setText(defaultText);
-                screen.setForeground(Color.GRAY);
-            } else if (buttonText.equals("=")) {
-                sendInput();
-            }else if(buttonText.equals("DEL")) {
-                screen.setText(screen.getText().substring(0, screen.getText().length() - 1));
-
-            }else {
-                if (currentText.equals(defaultText)) {
-                    screen.setForeground(Color.BLACK);
-                    screen.setText(buttonText);
-                } else {
-                    screen.setText(currentText + buttonText);
+            switch (buttonText) {
+                case "C" -> {
+                    screen.setText(defaultText);
+                    screen.setForeground(Color.GRAY);
+                }
+                case "=" -> sendInput();
+                case "DEL" -> screen.setText(screen.getText().substring(0, screen.getText().length() - 1));
+                default -> {
+                    if (currentText.equals(defaultText)) {
+                        screen.setForeground(Color.BLACK);
+                        screen.setText(buttonText);
+                    } else {
+                        screen.setText(currentText + buttonText);
+                    }
                 }
             }
         }
