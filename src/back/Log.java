@@ -37,4 +37,13 @@ public class Log {
             return str;
         }
     }
+
+    public String delete(){
+        if(logs.isEmpty()){
+            return "Already Empty!";
+        }else{
+            logs.remove(0);
+            return "Deleted";
+        }
+    }
 }
