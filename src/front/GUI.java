@@ -51,7 +51,7 @@ public class GUI extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-         //           getUserInput(screen.getText());
+                    sendInput();
                 }
             }
         });
