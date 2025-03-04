@@ -15,7 +15,12 @@ public class Calculator {
     public String init(String input){
         tokens=tokenize(input);
         convertToPostfix(tokens);
-        result = calc();
+        try{
+            result = calc();
+
+        }catch (ArithmeticException e){
+            return " => Division by zero!";
+        }
         String formula = toFormula();
         tokens.clear();
         values.clear();
@@ -113,7 +118,7 @@ public class Calculator {
         }
     }
 
-    public double calc(){
+    private double calc(){
         Stack<Double> numbers = new Stack();
 
         String sTemp;
@@ -150,8 +155,13 @@ public class Calculator {
             System.out.print(token.getValue()+" ");
             formula += token.getValue() + " ";
         }
-        System.out.println("= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString());
-        formula += "= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString();
+        try{
+            System.out.println("= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString());
+            formula += "= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString();
+        }catch(NumberFormatException e){
+            return " => Division by zero!";
+        }
+
         return formula;
     }
 }

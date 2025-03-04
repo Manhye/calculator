@@ -86,7 +86,7 @@ public class GUI extends JFrame {
             String buttonText = e.getActionCommand();
             String currentText = screen.getText();
 
-            if (buttonText.matches("[0-8]")) {
+            if (buttonText.matches("[1-8]")) {
                 playNumberSound(buttonText);
             }
 
@@ -121,6 +121,7 @@ public class GUI extends JFrame {
             e.printStackTrace();
         }
     }
+
     public void sendInput() {
         if (listener != null) {
             listener.onInputReceived(screen.getText());

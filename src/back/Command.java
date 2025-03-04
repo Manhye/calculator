@@ -1,13 +1,12 @@
 package back;
 
-
-
 public class Command {
     private String help = "Command List\n" +
             "@big + (number) : show bigger results\n" +
             "@exit: exit the program\n" +
             "@help: show other commands\n"+
-            "@log: show logs";
+            "@log: show logs\n" +
+            "@del: delete the first log";
     public String init(String input) {
         if(input.equals("@help")) {
             return help;
@@ -20,9 +19,10 @@ public class Command {
             Log log = Log.getInstance();
             String sLastNumber = input.substring(input.lastIndexOf(" ") + 1);
             return log.getBigger(Double.parseDouble(sLastNumber));
+        }else if(input.startsWith("@del")){
+            Log log = Log.getInstance();
+            return log.delete();
         }
         return "UNKNOWN VALUE";
     }
-
-
 }

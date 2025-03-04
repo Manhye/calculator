@@ -12,6 +12,7 @@ public class Allocator {
             returnVal = calculator.init(input);
             Log log = Log.getInstance();
             log.addLog(returnVal);
+            calculator = null;
         }
         return returnVal;
     }
