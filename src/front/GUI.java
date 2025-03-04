@@ -60,10 +60,10 @@ public class GUI extends JFrame {
         buttonPanel.setLayout(new GridLayout(4, 6, 5, 5));
 
         String[] buttons = {
-                "7", "8", "9", "/", "(", "@",
-                "4", "5", "6", "*", ")", "log",
-                "1", "2", "3", "-", "!", "sin",
-                "0", "C", "=", "+", "^", "cos"
+                "7", "8", "9", "/", "(", "DEL",
+                "4", "5", "6", "*", ")", "@",
+                "1", "2", "3", "-", "!", "3.14",
+                "0", "C", "=", "+", "^", "."
         };
 
         for (String text : buttons) {
@@ -78,10 +78,6 @@ public class GUI extends JFrame {
         setSize(600, 800);
         setVisible(true);
 
-    }
-
-    private void setText(String text){
-        screen.setText(text);
     }
 
     private class ButtonClickListener implements ActionListener {
@@ -99,7 +95,10 @@ public class GUI extends JFrame {
                 screen.setForeground(Color.GRAY);
             } else if (buttonText.equals("=")) {
                 sendInput();
-            } else {
+            }else if(buttonText.equals("DEL")) {
+                screen.setText(screen.getText().substring(0, screen.getText().length() - 1));
+
+            }else {
                 if (currentText.equals(defaultText)) {
                     screen.setForeground(Color.BLACK);
                     screen.setText(buttonText);

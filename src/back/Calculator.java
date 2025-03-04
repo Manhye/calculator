@@ -147,8 +147,8 @@ public class Calculator {
     private String toFormula(){
         String formula = "";
         for(Token token : tokens){
-            System.out.print(token.value+" ");
-            formula += token.value + " ";
+            System.out.print(token.getValue()+" ");
+            formula += token.getValue() + " ";
         }
         System.out.println("= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString());
         formula += "= " + BigDecimal.valueOf(result).stripTrailingZeros().toPlainString();
