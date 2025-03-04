@@ -2,8 +2,8 @@ package back;
 
 public class Token {
 
-    String type;
-    String value;
+    private String type;
+    private String value;
 
     Token(String type, String value){
         this.type = type;
