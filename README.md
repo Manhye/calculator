@@ -1,11 +1,9 @@
 # Java Calculator
 
----------------------------------------
 
 ## Description
 This is a simple yet expandable calculator program written in Java. It starts with basic arithmetic operations and progresses through multiple enhancement levels, incorporating features like history tracking, precision calculations, and graphical user interface (GUI) support.
 
----------------------------------------
 
 ## Features
 ### Level 1 - Basic Calculator
