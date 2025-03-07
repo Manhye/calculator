@@ -111,7 +111,7 @@ public class GUI extends JFrame {
 
     private void playNumberSound(String number) {
         try {
-            String soundFileName = "src/front/sound/sound_" + number + ".wav";
+            String soundFileName = "src/resources/assets/sound/sound_" + number + ".wav";
             File soundFile = new File(soundFileName);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();

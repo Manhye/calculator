@@ -48,9 +48,6 @@ public enum Operator {
         return null;
     }
 
-    public int getPriority(){
-        return this.priority;
-    }
 
     public static int getPriority(String symbol) {
         for (Operator op : values()) {
